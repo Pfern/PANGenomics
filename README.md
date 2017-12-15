@@ -26,7 +26,7 @@ For our exploration we have collected several data sets that combine genomic and
 
 Using these data we work through various modules based on different functional aspects of pangenomics.
 
-This figure, from a recent [paper on computational pangenomics](http://biorxiv.org/content/early/2016/08/25/043430.abstract), can serve as a helpful guide to our learning objectives:
+This figure, from a recent [paper on computational pangenomics](https://doi.org/10.1093/bib/bbw089), can serve as a helpful guide to our learning objectives:
 
 ![Pangenomics operations](https://raw.githubusercontent.com/Pfern/PANGenomics/master/images/operations.png)
 
