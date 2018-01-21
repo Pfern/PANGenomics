@@ -1,14 +1,32 @@
 # PANGenomics
 
-## Motivation
+## Course Description
 
-Singular reference genomes have become central to bioinformatics approaches, and form the core of standard analyses using contemporary sequencing data.
-However, their use presents us with a paradox, in that they tend to bias us away from the observation of variation in the genomes we study.
+Reference genomes have become central to bioinformatics approaches, and form the core of standard analyses using contemporary sequencing data.
+However, the use of *linear* reference genomes, which provide the sequence of one representative genome for a species,  is increasingly becoming a limitation as the number of sequenced genomes grows. In particular, they tend to bias us away from the observation of variation in the genomes we study.
 A general solution to this problem is to use a _pangenome_ that incorporates both sequence and variation from many individuals as our reference system.
-This pangenome is naturally represented as graphical model with annotations, and can provide all the functionality traditionally provided by linear reference genomes.
-However, unlike linear reference genomes, a pangenome readily incorporates both small and large variation, allowing bias-free genotyping at known alleles.
-In this course we will explore the use of modern bioinformatic tools that allow researchers to use pangenome references as their reference system when engaging in studies of organisms of all types.
-Such techinques will aid any researcher working on organisms of high genetic diversity or for which lack a high-quality reference genome, or simply those who are interested in learning about and applying techinques representing the next big conceptual step in computational genomics.
+This pangenome is naturally modeled as a graph with annotations, and can provide all the functionality traditionally provided by linear reference genomes.
+Unlike linear reference genomes, a pangenome readily incorporates both small and large variation, allowing bias-free genotyping at known alleles.
+In this course we will explore the use of modern bioinformatic tools that allow researchers to use pangenomes as their reference system when engaging in studies of organisms of all types.
+Such techniques will aid any researcher working on organisms of high genetic diversity or on organisms lacking a high-quality reference genome.
+This course targets all researchers interested in learning about an exciting paradigm shift in computational genomics.
+
+## Target Audience
+TODO 
+#### Pre- requisites (optional)
+
+## Schedule
+#### Day 1
+TODO
+
+#### Day 2
+TODO
+
+#### Day 3
+TODO
+
+#### Day 4
+TODO
 
 ## Learning objectives
 
