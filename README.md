@@ -105,6 +105,13 @@ TODO
 
 ### (bonus) association study or population study
 
+## Instructors
+### Tobias Marschall
+![Tobias Marschall](https://www.mpi-inf.mpg.de/~marschal/marschal.jpg)
+[Tobias Marschall ](Tobias Marschall http://www.zbi.uni-saarland.de/en/junior-groups/algorithms-computational-genomics.html) is an assistant professor at the Center for Bioinformatics at Saarland University and affiliated with the Max Planck Institute for Informatics as a senior researcher. He is heading the Algorithms for Computational Genomics group. His research targets algorithmic and statistical challenges arising from present-day genomics technologies. A particular focus is on population-scale sequencing efforts, on structural variation discovery, on algorithms and data structures for pan-genomes and on haplotyping in various contexts (from humans to viruses). He has co-organized two workshops on computational pan-genomics, one at the [Lorentz Center in Leiden, The Netherlands,](https://lorentzcenter.nl/lc/web/2015/698/info.php3?wsid=698&venue=Oort), which has lead to a [comprehensive review paper](https://doi.org/10.1093/bib/bbw089), and one at [ECCB 2016](https://www.ebi.ac.uk/eccb/2016/programme/workshops/w9/index.html)
+
+Tobias received his undergraduate education at Bielefeld University (Germany), where he studied computer science and physics. He obtained his PhD in bioinformatics from TU Dortmund. After that, he moved to Centrum Wiskunde & Informatica (Amsterdam, The Netherlands), the Dutch national institute for mathematics and computer science, as a postdoctoral researcher. During his time as a postdoc, he also was a long-term participant of the semester program on Mathematical and Computational Approaches in High-Throughput Genomics held at the Institute for Pure and Applied Mathematics (IPAM) at University of California Los Angeles (UCLA).
+
 # TODO
 
 - [x] Define the overall learning objectives
