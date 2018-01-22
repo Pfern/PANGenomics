@@ -20,29 +20,36 @@ The course will be of particular interest to researchers investigating organisms
 
 ## Schedule
 ### Day 1
+#### Getting to know each-other and establishing teamwork
+#### Introduction to the course objevctives
 #### Understanding the limitations of linear reference genomes
 #### Pangenomic data structures
 #### Hello pangenome! (Build your first pangenome.)
 
 ### Day 2
+#### Morning wrap-up: what did we learn so far?
 #### Navigating the pangenome (coordinates)
 #### Visualizing pangenome graphs
 #### Applications: HLA, viruses, yeast, bacteria
 
 ### Day 3
+#### Morning wrap-up: what did we learn so far?
 #### Read mapping to pangenomes
 #### Align a read set
 #### Variant calling in a pangenome
 #### Comparing to the linear approach
 
+
+
 ### Day 4
 #### Using an assembly graph as a reference
 #### Thinking about haplotypes
 #### Show and tell: Discussion of applications relevant to participants
+#### Final wrap-up and general discussion of the outcomes
 
 ## Learning objectives
 
-Students first will learn about limitations of linear reference-based methods and work through a brief refresher or introduction to standard approaches for processing sequencing data, including read alignment and variant calling.
+Participants first will learn about limitations of linear reference-based methods and work through a brief refresher or introduction to standard approaches for processing sequencing data, including read alignment and variant calling.
 Provided these motivating examples, we will use data from a variety of relevant sources to develop an intuition about pangenomic methods and a practical familiarity with applicable tools.
 
 We will mostly use vg and other methods that read and write [GFA](https://github.com/GFA-spec/GFA-spec).
