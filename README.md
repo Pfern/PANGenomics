@@ -12,7 +12,10 @@ Such techniques will aid any researcher working on organisms of high genetic div
 This course targets all researchers interested in learning about an exciting paradigm shift in computational genomics.
 
 ## Target Audience
-TODO 
+
+This course is oriented towards biologists and bioinformaticians with at least an intermediate level of experience working with sequencing data formats and methods in the unix shell.
+The course will be of particular interest to researchers investigating organisms without a reference genome or populations featuring high levels of genetic diversity.
+    
 #### Pre- requisites (optional)
 
 ## Schedule
