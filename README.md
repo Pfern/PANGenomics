@@ -19,17 +19,26 @@ The course will be of particular interest to researchers investigating organisms
 #### Pre- requisites (optional)
 
 ## Schedule
-#### Day 1
-TODO
+### Day 1
+#### Understanding the limitations of linear reference genomes
+#### Pangenomic data structures
+#### Hello pangenome! (Build your first pangenome.)
 
-#### Day 2
-TODO
+### Day 2
+#### Navigating the pangenome (coordinates)
+#### Visualizing pangenome graphs
+#### Applications: HLA, viruses, yeast, bacteria
 
-#### Day 3
-TODO
+### Day 3
+#### Read mapping to pangenomes
+#### Align a read set
+#### Variant calling in a pangenome
+#### Comparing to the linear approach
 
-#### Day 4
-TODO
+### Day 4
+#### Using an assembly graph as a reference
+#### Thinking about haplotypes
+#### Show and tell: Discussion of applications relevant to participants
 
 ## Learning objectives
 
