@@ -1,4 +1,4 @@
-# PANGenomics
+# Computational PANGenomics
 
 ## Course Description
 
