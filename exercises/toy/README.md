@@ -45,9 +45,7 @@ The switch `-m` tells vg to put at most 32 characters into each graph node. (You
 
 To work with the JSON output the tool [jq](https://stedolan.github.io/jq/) comes in handy. To get all sequences in the graph, for instance, try
 
-	vg view -j tiny.ref.vg | jq .node.sequence
-	ERIK: THIS GIVES ME AN ERROR:
-	jq: error (at <stdin>:1): Cannot index array with string "sequence"
+    vg view -j tiny.ref.vg | jq '.node[].sequence'
 
 Next, we use graphviz to layout the graph representation in DOT format.
 
@@ -104,19 +102,35 @@ Next, we want to play with mapping reads to the graph. Luckily, vg comes with su
 
 	vg sim -x z.xg -l 100 -n 1000 -e 0.01 -i 0.005 -a >z.sim
 
-This generates 1000 (`-n`) reads of length (`-l`) with a substitution error rate of 1% (`-e`) and an indel error rate of 0.5% (`-i`). Adding `-a` instructs `vg sim` to output the true alignment paths in GAM format rather than just the plain sequences (**ERIK**: correct?). **ERIK**: For didactic reasons, it might be better to first work from the plain sequences and then output the GAM. Can sim created fastq? Or can map work on fasta input?  
+This generates 1000 (`-n`) reads of length (`-l`) with a substitution error rate of 1% (`-e`) and an indel error rate of 0.5% (`-i`). Adding `-a` instructs `vg sim` to output the true alignment paths in GAM format rather than just the plain sequences. Map can work on raw sequences (`-s` for a single sequence or `-r` for a text file with each sequence on a new line), FASTQ (`-f`), or FASTA (`-f` for two-line format and `-F` for a reference sequence where each sequence is over multiple lines).
 
 We are now ready to map the simulated read to the graph.
 
 	vg map -x z.xg -g z.gcsa -G z.sim >z.gam
 
-**ERIK**: What's the best way to visualize the mapped reads? That might be good to add here.
+We can visualize alignments using an option to `vg view`. The format is not pretty but it provides us enough information to understand the whole alignment.
+More advanced visualization methods (like [IVG](https://vgteam.github.io/sequenceTubeMap/)) are in development, but do not work on the command line.
+
+These commands would show us the first alignment in the set:
+
+    vg view -a z.gam | head -1 | vg view -JaG - >first_aln.gam
+    vg find -x z.xg -G first_aln.gam | vg view -dA first_aln.gam - | dot -Tpdf -o first_aln.pdf
+
+We see the `Mappings` of the `Alignment` written in blue for exact matches and yellow for mismatches above the nodes that they refer to. Many alignments can be visualized at the same time. A simpler mode of visualization `vg view -dSA` gives us the alignment's mappings to nodes, colored in the range from green to red depending on the quality of the match to the particular node.
 
 For evaluation purposes, vg has the capability to compare the newly created read alignments to true paths of each reads used during simulation.
 
 	vg map -x z.xg -g z.gcsa -G z.sim --compare -j
 
-This outputs the comparison between mapped and and true locations in JSON format. **ERIK**: This needs some explanations. Can we add some command lines to illustrate how that is useful?
+This outputs the comparison between mapped and and true locations in JSON format. We can use this quickly check if our alignment process is doing what we expect on the variation graph we're working on. For instance, we could set alignment parameters that cause problems for our alignment and then observe this using the `--compare` feature of the mapper. For example, we can map two ways and see a difference in how correct our alignment is:
+
+	vg map -x z.xg -g z.gcsa -G z.sim --compare -j | jq .correct | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
+
+In contrast, if we were to set a very high minimum match length we would throw away a lot of the information we need to make good mappings, resulting in a low correctness metric:
+
+    vg map -k 51 -x z.xg -g z.gcsa -G z.sim --compare -j | jq .correct | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
+
+It is essential to understand that our alignment process works against the graph which we have constructed. This pattern allows us to quickly understand if the particular graph and configuration of the mapper produce sensible results at least given a simulated alignment set. Note that the alignment comparison will break down if we simulate from different graphs, as it depends on the coordinate system of the given graph.
 
 ### Exploring the benefits of graphs for read mapping
 To get a first impression of how a graph reference helps us do a better job while mapping reads. We will construct a series of graphs from a linear reference to a graph with a lot variation and look at mapping rates, i.e. at the fraction of reads that can successfully be mapped to the graph. For examples, we might include variation above given allele frequency (AF) cutoffs and vary this cutoff, which can be achieved as follows.
@@ -144,4 +158,37 @@ Next, we index all our new VCFs...
 	vg map -d z.AF0.01 -G z.sim -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
 	vg map -d z.AF0 -G z.sim -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
 
-**ERIK**: So this is not about mapping read, as I wrote above, right? Maybe we can have participants rather dig into particular mappings and do this a bit more anecdotically. I still like a comparison to `bwa`.
+
+### Mapping data from real data to examine the improvement
+
+We can also download some real data mapping to this region to see if the different graphs provide varying levels of performance.OB
+
+    samtools view -b ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam 20:1000000-2000000 >NA12878.20_1M-2M.30x.bam
+    wget http://hypervolu.me/~erik/tmp/HG002-NA24385-20_1M-2M-50x.bam
+
+The first is a sample that was used in the preparation of the 1000 Genomes results, and so we expect to find it in the graph. The second wasn't used in the preparation of the variant set, but we do expect to find almost all of its variants in the 1000G set.
+
+We can run a single-ended alignment test to compare with bwa mem:
+
+    samtools fastq -1 HG002-NA24385-20_1M-2M-50x_1.fq.gz -2 HG002-NA24385-20_1M-2M-50x_2.fq.gz data/HG002-NA24385-20_1M-2M-50x.bam
+    bwa mem work/z.fa HG002-NA24385-20_1M-2M-50x_1.fq.gz | sambamba view -S -f json /dev/stdin | jq -cr '[.qname, .tags.AS] | @tsv' >bwa_mem.scores.tsv
+    vg map --drop-full-l-bonus -d work/z.AF0.01 -f HG002-NA24385-20_1M-2M-50x_1.fq.gz -j | pv -l | jq -cr '[.name, .score] | @tsv' >vg_map.AF0.01.scores.tsv
+
+Then we can compare the results using sort and join:
+
+    join <(sort bwa_mem.scores.tsv ) <(sort vg_map.AF0.01.scores.tsv ) | awk '{ print $0, $3-$2 }' | tr ' ' '\t' | sort -n -k 4 | pv -l | gzip >compared.tsv.gz
+
+We can then see how many alignments have improved or worse scores:
+
+    zcat compared.tsv.gz | awk '{ if ($4 < 0) print $1 }' | wc -l
+    zcat compared.tsv.gz | awk '{ if ($4 == 0) print $1 }' | wc -l
+    zcat compared.tsv.gz | awk '{ if ($4 > 0) print $1 }' | wc -l
+
+In general, the scores improve. Try plotting a histogram of the differences to see the extent of the effect.
+
+We can pick a subset of reads with high or low score differentiation to realign and compare:
+
+    zcat HG002-NA24385-20_1M-2M-50x_1.fq.gz | awk '{ printf("%s",$0); n++; if(n%4==0) { printf("\n");} else { printf("\t\t");} }' | grep -Ff <(zcat compared.tsv.gz | awk '{ if ($4 < -10) print $1 }' ) | sed 's/\t\t/\n/g' | gzip >worse.fq.gz
+    zcat HG002-NA24385-20_1M-2M-50x_1.fq.gz | awk '{ printf("%s",$0); n++; if(n%4==0) { printf("\n");} else { printf("\t\t");} }' | grep -Ff <(zcat compared.tsv.gz | awk '{ if ($4 > 10) print $1 }' ) | sed 's/\t\t/\n/g' | gzip >better.fq.gz
+
+Let's dig into some of the more-highly differentiated reads to understand why vg is providing a better (or worse) alignment.
