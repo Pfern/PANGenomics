@@ -1,6 +1,7 @@
 # Exercise 1: Learning vg on toy examples
 
 ### Learning objectives
+
 In this exercise you learn how to
 
 - find toy examples to work with,
@@ -11,6 +12,7 @@ In this exercise you learn how to
 - map reads to the graph using `vg map`.
 
 ###Getting started
+
 Make sure you have vg installed. It is already available on the course workstations. If you want to bulid it on your laptop, follow the instructions at the [vg homepage](https://github.com/vgteam/vg) (note that building vg and all submodules from source can take ~1h). In this exercise, you will use small toy examples from the `test` directory. So make sure you have checked out vg:
 
 	git clone https://github.com/vgteam/vg.git
@@ -22,6 +24,7 @@ Now create a directory to work on for this tutorial:
 	ln -s ../vg/test/tiny
 
 ### Constructing and viewing your first graphs
+
 Like many other toolkits, vg is comes with many different subcommands. First we will use `vg construct` to build our first graph. Run it without parameters to get information on its usage:
 
 	vg construct
@@ -83,14 +86,14 @@ This directory contains 1Mbp of 1000 Genomes data for chr20:1000000-2000000. As 
 	vg construct -r 1mb1kgp/z.fa -m 32 -p >ref.vg
 	vg construct -r 1mb1kgp/z.fa -v 1mb1kgp/z.vcf.gz -m 32 -p >z.vg
 
-You might be tempted to visualize these graphs (and of course you are welcome to try), but they are sufficiently big already that neato can run out of memory and crash.  
+You might be tempted to visualize these graphs (and of course you are welcome to try), but they are sufficiently big already that neato can run out of memory and crash.
 
 In a nutshell, mapping reads to a graph is done in two stages: first, seed hits are identified and then a sequence-to-graph alignment is performed for each individual read. Seed finding hence allows vg to spot candidate regions in the graph to which a given read can map potentially map to. To this end, we need an index. In fact, vg needs two different representations of a graph for read mapping XG (a succinct representation of the graph) and GCSA (a k-mer based index). To create these representations, we use `vg index` as follows.
 
 	vg index -x z.xg z.vg
 	vg index -g z.gcsa -k 16 z.vg
 
-Passing option `-k 16` tells vg to use a k-mer size of 16. The best choice of k will depend on your graph and will lead to different trade-offs of sensitivity and runtime during read mapping.  
+Passing option `-k 16` tells vg to use a k-mer size of 16. The best choice of k will depend on your graph and will lead to different trade-offs of sensitivity and runtime during read mapping.
 
 As mentioned above, the whole graph is unwieldy to visualize. But thanks to the XG representation, we can now quickly **find* individual pieces of the graph. Let's extract the vicinity of the node with ID 2401 and create a PDF.
 
@@ -133,6 +136,7 @@ In contrast, if we were to set a very high minimum match length we would throw a
 It is essential to understand that our alignment process works against the graph which we have constructed. This pattern allows us to quickly understand if the particular graph and configuration of the mapper produce sensible results at least given a simulated alignment set. Note that the alignment comparison will break down if we simulate from different graphs, as it depends on the coordinate system of the given graph.
 
 ### Exploring the benefits of graphs for read mapping
+
 To get a first impression of how a graph reference helps us do a better job while mapping reads. We will construct a series of graphs from a linear reference to a graph with a lot variation and look at mapping rates, i.e. at the fraction of reads that can successfully be mapped to the graph. For examples, we might include variation above given allele frequency (AF) cutoffs and vary this cutoff, which can be achieved as follows.
 
 	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0.5' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.5.vg
@@ -140,7 +144,7 @@ To get a first impression of how a graph reference helps us do a better job whil
 	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0.01' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.01.vg
 	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.vg
 
-Alternatively, you can also use `bcftools` to subset the VCFs. The ``--exculde`` option in conjunction with custom [expressions](https://samtools.github.io/bcftools/bcftools-man.html#expressions) is particularly useful to this end.  
+Alternatively, you can also use `bcftools` to subset the VCFs. The ``--exculde`` option in conjunction with custom [expressions](https://samtools.github.io/bcftools/bcftools-man.html#expressions) is particularly useful to this end.
 
 Next, we index all our new VCFs...
 
