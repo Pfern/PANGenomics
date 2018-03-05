@@ -93,9 +93,9 @@ In a nutshell, mapping reads to a graph is done in two stages: first, seed hits 
 	vg index -x z.xg z.vg
 	vg index -g z.gcsa -k 16 z.vg
 
-Passing option `-k 16` tells vg to use a k-mer size of 16. The best choice of k will depend on your graph and will lead to different trade-offs of sensitivity and runtime during read mapping.
+Passing option `-k 16` tells vg to use a k-mer size of *16k*. The best choice of *k* will depend on your graph and will lead to different trade-offs of sensitivity and runtime during read mapping.
 
-As mentioned above, the whole graph is unwieldy to visualize. But thanks to the XG representation, we can now quickly **find* individual pieces of the graph. Let's extract the vicinity of the node with ID 2401 and create a PDF.
+As mentioned above, the whole graph is unwieldy to visualize. But thanks to the XG representation, we can now quickly *find* individual pieces of the graph. Let's extract the vicinity of the node with ID 2401 and create a PDF.
 
 	vg find -n 2401 -x z.xg -c 10 | vg view -dp - | dot -Tpdf -o 2401c10.pdf
 
