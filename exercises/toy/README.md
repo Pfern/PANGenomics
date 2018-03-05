@@ -11,7 +11,7 @@ In this exercise you learn how to
 - create an index structure needed for read mapping using `vg index`,
 - map reads to the graph using `vg map`.
 
-###Getting started
+### Getting started
 
 Make sure you have vg installed. It is already available on the course workstations. If you want to bulid it on your laptop, follow the instructions at the [vg homepage](https://github.com/vgteam/vg) (note that building vg and all submodules from source can take ~1h). In this exercise, you will use small toy examples from the `test` directory. So make sure you have checked out vg:
 
