@@ -20,32 +20,9 @@ The course will be of particular interest to researchers investigating organisms
 
 ## Schedule
 ### Day 1
-#### Getting to know each-other and establishing teamwork
-#### Introduction to the course objevctives
-#### Understanding the limitations of linear reference genomes
-#### Pangenomic data structures
-#### Hello pangenome! (Build your first pangenome.)
-
-### Day 2
-#### Morning wrap-up: what did we learn so far?
-#### Navigating the pangenome (coordinates)
-#### Visualizing pangenome graphs
-#### Applications: HLA, viruses, yeast, bacteria
-
-### Day 3
-#### Morning wrap-up: what did we learn so far?
-#### Read mapping to pangenomes
-#### Align a read set
-#### Variant calling in a pangenome
-#### Comparing to the linear approach
-
-
-
-### Day 4
-#### Using an assembly graph as a reference
-#### Thinking about haplotypes
-#### Show and tell: Discussion of applications relevant to participants
-#### Final wrap-up and general discussion of the outcomes
+#### [Intro slides](https://github.com/Pfern/PANGenomics/blob/master/slides/day1-intro.pdf)
+#### [Full slide deck](https://docs.google.com/presentation/d/1Egz5b6oyiyaQ-ecVaTf-waSZlnJT5yNoR578PlpKsTY)
+#### Practical 1: [toy examples](https://github.com/Pfern/PANGenomics/tree/master/exercises/toy)
 
 ## Learning objectives
 
