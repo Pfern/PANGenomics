@@ -138,7 +138,7 @@ To get a first impression of how a graph reference helps us do a better job whil
 
     vcffilter -f 'AF > FREQ' 1mb1kgp/z.vcf.gz > min_af_filtered.vcf
 
-Alternatively, you can also use `bcftools` to subset the VCFs. The ``--exculde`` option in conjunction with custom [expressions](https://samtools.github.io/bcftools/bcftools-man.html#expressions) is particularly useful to this end.
+Alternatively, you can also use `bcftools` to subset the VCFs. The ``--exculde`` option in conjunction with custom [expressions](https://samtools.github.io/bcftools/bcftools-man.html#expressions) is particularly useful to this end. You may also want to think about other properties that would be useful to filter on.
 
 With this input you should be able to run the whole pipeline:
 
@@ -153,7 +153,6 @@ Try doing this on graphs with a range of minimum allele frequencies (e.g. 0.5, 0
     ls -sh *.gcsa*
 
 How do these files seem to scale with the minimum cutoff?
-
 
 ### Mapping data from real data to examine the improvement
 
