@@ -81,10 +81,7 @@ Ok, let's step up to a slightly bigger example.
 
 	ln -s ../vg/test/1mb1kgp
 
-This directory contains 1Mbp of 1000 Genomes data for chr20:1000000-2000000. As for the tiny example, we build one linear graph that only contains the reference sequence and one graph that additionally encodes the known sequence variation.
-
-	vg construct -r 1mb1kgp/z.fa -m 32 -p >ref.vg
-	vg construct -r 1mb1kgp/z.fa -v 1mb1kgp/z.vcf.gz -m 32 -p >z.vg
+This directory contains 1Mbp of 1000 Genomes data for chr20:1000000-2000000. As for the tiny example, let's' build one linear graph that only contains the reference sequence and one graph that additionally encodes the known sequence variation. The reference sequence is contained in `1mb1kgp/z.fa`, and the variation is contained in `1mb1kgp/z.vcf.gz`. Make a reference-only graph named `ref.vg`, and a graph with variation named `z.vg`. Look at the previous examples to figure out the command.
 
 You might be tempted to visualize these graphs (and of course you are welcome to try), but they are sufficiently big already that neato can run out of memory and crash.
 
@@ -137,30 +134,25 @@ It is essential to understand that our alignment process works against the graph
 
 ### Exploring the benefits of graphs for read mapping
 
-To get a first impression of how a graph reference helps us do a better job while mapping reads. We will construct a series of graphs from a linear reference to a graph with a lot variation and look at mapping rates, i.e. at the fraction of reads that can successfully be mapped to the graph. For examples, we might include variation above given allele frequency (AF) cutoffs and vary this cutoff, which can be achieved as follows.
+To get a first impression of how a graph reference helps us do a better job while mapping reads. We will construct a series of graphs from a linear reference to a graph with a lot variation and look at mapping rates, i.e. at the fraction of reads that can successfully be mapped to the graph. For examples, we might include variation above given allele frequency (AF) cutoffs and vary this cutoff. You can make a VCF with a minimum allele fequency with this command (replace `FREQ` with the frequency you want):
 
-	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0.5' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.5.vg
-	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0.1' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.1.vg
-	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0.01' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.01.vg
-	vg construct -r 1mb1kgp/z.fa -v <(vcffilter -f 'AF > 0' 1mb1kgp/z.vcf.gz) -m 32 >z.AF0.vg
+    vcffilter -f 'AF > FREQ' 1mb1kgp/z.vcf.gz > min_af_filtered.vcf
 
 Alternatively, you can also use `bcftools` to subset the VCFs. The ``--exculde`` option in conjunction with custom [expressions](https://samtools.github.io/bcftools/bcftools-man.html#expressions) is particularly useful to this end.
 
-Next, we index all our new VCFs...
+With this input you should be able to run the whole pipeline:
 
-	vg index -x z.AF0.5.xg -g z.AF0.5.gcsa -k 16 -p z.AF0.5.vg
-	vg index -x z.AF0.1.xg -g z.AF0.1.gcsa -k 16 -p z.AF0.1.vg
-	vg index -x z.AF0.01.xg -g z.AF0.01.gcsa -k 16 -p z.AF0.01.vg
-	vg index -x z.AF0.xg -g z.AF0.gcsa -k 16 -p z.AF0.vg
-	#look at the sizes of the indexes and graphs
-	ls -sh z.AF*
+- Construct the graphs with the filtered VCF
+- Index the graphs for mapping
+- Map the simulated reads to the graphs
+- Check the identity of the read mappings
 
-... and map reads to them while computing the avereage identity rate:
+Try doing this on graphs with a range of minimum allele frequencies (e.g. 0.5, 0.1, 0.01, etc.). How do the properties of the mappings change with different minimum frequencies? Let's also look at the sizes of the graphs and indexes.
 
-	vg map -d z.AF0.5 -G z.sim -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-	vg map -d z.AF0.1 -G z.sim -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-	vg map -d z.AF0.01 -G z.sim -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-	vg map -d z.AF0 -G z.sim -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
+    ls -sh *.vg
+    ls -sh *.gcsa*
+
+How do these files seem to scale with the minimum cutoff?
 
 
 ### Mapping data from real data to examine the improvement
