@@ -78,3 +78,9 @@ An earlier version of the [ideas.md](https://github.com/Pfern/PANGenomics/blob/m
 #### ClustalO input
 
 #### Assembly options
+Currently, there are two assemblers installed on the workstations: 
+
+- [bcalm2](https://github.com/GATB/bcalm), which just builds a compact De Bruijn graph, that is a graph composed of unitigs. Use you can use the `convertToGFA.py` script to convert the output to GFA.
+
+- [minia3](https://github.com/GATB/minia) is based on BCALM, but performs additional graph modification steps to get out longer contigs.
+
