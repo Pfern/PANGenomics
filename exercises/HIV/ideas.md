@@ -1,6 +1,4 @@
-# a pangenome from viral quasispecies
-
-A lab-based mix of RNA from 5 viral quasispecies. There are five quasispecies mixed together, but our reference has only 4 genomes in it.
+## missing genome reconstruction
 
 Let's make a reference graph, align reads to it, and use surjection and k-means clustering to attempt to find the reads that map to the 5th genome. Finally, we'll assemble these and see if it matches known information about the fifth genome.
 
@@ -23,6 +21,8 @@ And we prune and index with GCSA2:
 ```
 vg index -g REF4.gcsa -k 16 -p <(vg mod -pl 16 -e 3 REF4.vg)
 ```
+
+### Surjection based exploration
 
 We then map the first 10k Illumina reads:
 
@@ -59,6 +59,7 @@ Finally, we run the PCA and k-means clustering with a center count of 5 (as we a
 ```R
 require(tidyverse)
 require(broom)
+require(ggbiplot)
 first10k <- (read.delim("first10k.surj.join.tsv.gz") %>% mutate(id.sum=id.896+id.HXB2+id.JRCSF+id.NL43) %>% subset(id.sum > 0.95*4))
 first10k.pca <- prcomp(first10k[,2:5]/first10k$id.sum)
 first10k.pca.df <- as.data.frame(first10k.pca$x)
@@ -67,5 +68,42 @@ first10k.kmeans <- kmeans(first10k[,2:5]/first10k$id.sum, 5)
 first10k$cluster <- as.factor(first10k.kmeans$cluster)
 first10k.pca.df$cluster <- as.factor(first10k.kmeans$cluster)
 ggplot(first10k.pca.df, aes(x=PC1, y=PC2, color=cluster)) + geom_point()
+ggbiplot(first10k.pca, alpha=0.2, groups=first10k$cluster)
+```
+
+### Vectorize based analysis
+
+The pacbio sequencing data from the experiment includes reads that are approximately 1300bp on average.
+We can use vg vectorize to explore the relationships between the given reference genomes and the read set.
+This generates a vector representation of the reads over the graph, where each alignment is represented by a vector in the order of the graph.
+For each node that the alignment touches we record a 1, otherwise a 0.
+(Different encodings are possible, relating to the goodness of alignment of each Mapping in the Alignment's Path to the graph.)
+
+First we can run an alignment of part of the read set.
 
 ```
+vg map -d REF4 -f <(zcat SRR961669.fastq.gz | head -4000) >SRR961669.first1k.gam
+```
+
+Then we extract the paths themselves as an alignment:
+
+```
+vg paths -x REF4.vg >REF4.paths.gam
+```
+
+Finally we can make a matrix representation of the read set and the graph paths.
+
+```
+vg vectorize -f -x REF4.xg <(cat REF4.paths.gam SRR961669.first1k.gam) | gzip >SRR961669.vectorized.1k.tsv.gz
+```
+
+In R we can explore the relationship by building a distance metric between each read and each reference path.
+This is similar to surjection but avoids the need to actually run the local realignment.
+
+```R
+pacbio.m <- read.delim('SRR961669.vectorized.1k.tsv.gz')
+pacbio <- pacbio.m
+
+```
+
+Then we can explore the relationship between the sequences using PCA.
