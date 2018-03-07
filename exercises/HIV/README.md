@@ -75,6 +75,10 @@ An earlier version of the [ideas.md](https://github.com/Pfern/PANGenomics/blob/m
 
 #### Pruning
 
+You may have noticed that you cannot directly index the HIV graph generated from `vg msga` using `vg index`. The reason is that the graph contains regions of high complexity. GCSA2 indexing will enumerate _all_ kmers up to 256bp within the graph, and in regions of high complexity this may mean many (>billions) of kmers.
+
+To resolve this problem, we "prune" the graph with `vg mod -pl 16 -e 3` or `vg prune`. Try pruning the graph and rendering it with `vg view -d` to see what happens to the structures within it under certain pruning modes. We pass the pruned graph to `vg index -g`, indexing the kmers in it. Then when we map we give `vg map` the full graph (in xg format) and the GCSA based on the pruned graph. The MEM finding uses the pruned graph, but when we do the local alignment we can efficiently work with the full, un-pruned graph, returning alignments in its space.
+
 #### ClustalO input
 
 #### Assembly options
