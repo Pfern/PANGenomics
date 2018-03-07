@@ -59,6 +59,12 @@ There are 1.5M Illumina reads in SRR961514. It's not necessary to use all of the
 
 #### Where is the Env gene?
 
+To locate genes, you might want to look at the [NCBI HXB2 annotations](https://www.ncbi.nlm.nih.gov/nucleotide/K03455). Here is the gff3 record for the env gene:
+
+```
+K03455.1	Genbank	CDS	6225	8795	.	+	0	ID=cds4;Parent=rna0;Dbxref=NCBI_GP:AAB50262.1;Name=AAB50262.1;gbkey=CDS;product=AAB50262.1;protein_id=AAB50262.1
+```
+
 #### Circular HIV genome confusion
 
 An earlier version of the [ideas.md](https://github.com/Pfern/PANGenomics/blob/master/exercises/HIV/ideas.md) walkthrough suggested that you should circularize the HIV genome. This is not the case, and the apparent circularity of the REF.fasta results from either homology between the start and end of some of the strains or from the generation of the references based on plasmid resequencing.
