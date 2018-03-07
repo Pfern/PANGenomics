@@ -155,6 +155,11 @@ Tobias received his undergraduate education at Bielefeld University (Germany), w
 
 [Erik Garrison](http://hypervolu.me/~erik/erik_garrison.html) is a PhD student at the Wellcome Trust Sanger Institute and Cambridge University. His ongoing doctoral research has focused on the development of a software toolkit for practical pangenomics: [vg](https://github.com/vgteam/vg). He has seven years of experience in genomics, where he has worked on the development of sequencing systems, participated in large scale sequencing projects such as the [1000 Genomes Project](http://www.internationalgenome.org/), and authored popular bioinformatics software such as the [freebayes](https://github.com/ekg/freebayes) variant caller. Raised in Kentucky, Erik obtained an undergraduate degree in the social sciences from Harvard University. After graduation he worked at Harvard Medical School, One Laptop Per Child, and Boston College before beginning his studies at the Sanger Institute.
 
+## Course Assistant
+### Jordan Eizenga
+![Jordan Eizenga](https://cgl.genomics.ucsc.edu/wp-content/uploads/2016/07/CGL_Team_Pics_Jordan_Einzeinga.png) 
+[Jordan Eizenga](https://github.com/jeizenga) is a PhD student in the Computational Genomics Lab at the Unversity of California Santa Cruz. His advisors are David Haussler and Benedict Paten. Jordan was originally trained as a mathematician, but made the switch to bioinformatics in 2015. Now his research focuses on using graph data structures in genomics. He has published on both theoretical and practical aspects of this problem, and he has been heavily involved in the development of the [vg](https://github.com/vgteam/vg) project.
+
 # TODO
 
 - [x] Define the overall learning objectives
