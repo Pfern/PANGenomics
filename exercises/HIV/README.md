@@ -1,4 +1,17 @@
-# a pangenome from viral quasispecies
+# A Virus Pan-Genome
+
+Today you will work in more self-directed fashion. The driving questions are:
+
+- Can sequence graphs help us to analyze viral quasispecies data?
+- How can we construct a virus pan-genome?
+- Will the resulting read mapping have less artifacts?
+- How can we analyze the diversity in a sample using pan-genomic approaches?
+
+More concretely, we ask you to work on the following tasks (in any order, based on your groups preferences):
+
+- Study alignment artifacts. First, spot some examples of potentially problematic regions when using linear reference genomes. Construct a pan-genome representation of the five reference genomes, use it to align reads to it, surject them to a linear reference and compare the results. Second, think of ways to quantify the quality of the alignments across all reads and study the effect of different strategies for pan-genome construction on that measure.
+
+- Analyze the genetic diversity in the five virus mix. Assume you don't know that five viruses went into that sample. Think of ways to visualize the structure of the data sets (Illumina and PacBio). Could you have infered the number of present viruses from your visualization? Discuss why this is (or is not) possible.
 
 A lab-based mix of RNA from 5 viral quasispecies. There are five quasispecies mixed together, but our reference has only 4 genomes in it.
 
