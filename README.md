@@ -137,6 +137,7 @@ Tobias received his undergraduate education at Bielefeld University (Germany), w
 ## Course Assistant
 ### Jordan Eizenga
 ![Jordan Eizenga](https://cgl.genomics.ucsc.edu/wp-content/uploads/2016/07/CGL_Team_Pics_Jordan_Einzeinga.png) 
+
 [Jordan Eizenga](https://github.com/jeizenga) is a PhD student in the Computational Genomics Lab at the Unversity of California Santa Cruz. His advisors are David Haussler and Benedict Paten. Jordan was originally trained as a mathematician, but made the switch to bioinformatics in 2015. Now his research focuses on using graph data structures in genomics. He has published on both theoretical and practical aspects of this problem, and he has been heavily involved in the development of the [vg](https://github.com/vgteam/vg) project.
 
 # TODO
