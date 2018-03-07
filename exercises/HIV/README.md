@@ -36,3 +36,39 @@ There is a number of VG subcommands that can aid your tasks today, in particular
 - vg vectorize
 - vg mod
 - vg augment
+
+### Hints
+
+These are things we ran into during the practical, some of which may not have been obvious.
+
+#### vg viewing
+
+Rendering the HPV graphs using graphviz can be difficult. One way to reduce the difficulty of rendering (in terms of runtime and memory) is to change the rendering in vg view. Several options can help. First, you can use `vg view -d` alone, not rendering the paths as this can make the renderng much more complex. Secondly, you can add the "simple" mode flag, which removes the node labels, `vg view -dS` or `vg view -dpS`.
+
+You may find that large PDFs cannot be read by different PDF viewers like evince. As a workaround, the
+
+#### Surjection
+
+In the case of the HIV graph, you have to specify the path that surject maps into. Otherwise, there is a bug that will cause a crash. In any case, this is a hard problem for surject to solve on its own as there are now many reference paths that overlap and it's not clear which it should work on.
+
+To surject a paired-end alignment set, use `vg map -d ref -f mate1.fq.gz -f mate2.fq.gz | vg surject -x ref.xg -p REF_NAME -i -b - >aln.bam`.
+
+#### Read depth
+
+There are 1.5M Illumina reads in SRR961514. It's not necessary to use all of them in your analysis, as mapping this number of reads is no longer interactive. A simple hack is to take the first N reads using something like `zcat SRR961514_1.fastq.gz | head -$(echo "N*4" | bc) | gzip >firstN_1.fastq.gz` on both of the pair files. The same pattern can be used to take a subset of the pacbio reads.
+
+#### Where is the Env gene?
+
+#### Circular HIV genome confusion
+
+An earlier version of the [ideas.md](https://github.com/Pfern/PANGenomics/blob/master/exercises/HIV/ideas.md) walkthrough suggested that you should circularize the HIV genome. This is not the case, and the apparent circularity of the REF.fasta results from either homology between the start and end of some of the strains or from the generation of the references based on plasmid resequencing.
+
+#### GFA output and Bandage
+
+`vg view` produces [GFA format](https://github.com/GFA-spec/GFA-spec) which is a community standard interchange format for sequence graphs. You can open this in `Bandage` which is installed on your systems. Try `vg view g.vg >g.gfa` and then run `Bandage` and open your graph `.gfa` file. You'll need to render it and then you can navigate it. Bandage does not show paths but can easily show large scale structures in the graph.
+
+#### Pruning
+
+#### ClustalO input
+
+#### Assembly options
