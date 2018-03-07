@@ -99,11 +99,19 @@ vg vectorize -f -x REF4.xg <(cat REF4.paths.gam SRR961669.first1k.gam) | gzip >S
 
 In R we can explore the relationship by building a distance metric between each read and each reference path.
 This is similar to surjection but avoids the need to actually run the local realignment.
+Then we can explore the relationship between the sequences using PCA.
 
 ```R
-pacbio.m <- read.delim('SRR961669.vectorized.1k.tsv.gz')
-pacbio <- pacbio.m
-
+pacbio <- read.delim('SRR961669.vectorized.1k.tsv.gz')
+pacbio.m <- pacbio[2:ncol(pacbio)]
+pacbio.dist <- data.frame(
+    aln.name = pacbio$aln.name,
+    node.count = rowSums(pacbio.m),
+    id.896 = apply(pacbio.m, 1, function(x) dist(rbind(pacbio.m[1,], x))),
+    id.HXB2 = apply(pacbio.m, 1, function(x) dist(rbind(pacbio.m[2,], x))),
+    id.JRCSF = apply(pacbio.m, 1, function(x) dist(rbind(pacbio.m[3,], x))),
+    id.NL43 = apply(pacbio.m, 1, function(x) dist(rbind(pacbio.m[4,], x))))
+pacbio.dist.pca <- prcomp(-pacbio.dist[5:nrow(pacbio.dist),3:6])
+ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()
 ```
 
-Then we can explore the relationship between the sequences using PCA.
