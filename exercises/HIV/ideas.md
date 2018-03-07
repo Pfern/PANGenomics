@@ -37,7 +37,7 @@ First we surject the reads into each one of the references and build a table of 
 ```bash
 for ref in $(vg paths -L REF4.vg)
     do ( vg surject -x REF4.xg -p $ref SRR961514_1.first10k.gam | vg view -a - \
-        | jq -cr '[.name, "'$ref'", .identity]' | sed s/null/0/g | jq @tsv ) | gzip >first10k.surj.$ref.tsv.gz
+        | jq -cr '[.name, "'$ref'", .identity]' | sed s/null/0/g | jq -cr @tsv ) | gzip >first10k.surj.$ref.tsv.gz
 done
 ```
 
