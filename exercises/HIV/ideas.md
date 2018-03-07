@@ -115,7 +115,3 @@ pacbio.dist.pca <- prcomp(-pacbio.dist[5:nrow(pacbio.dist),3:6])
 ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()
 ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()
 ```
-
-#### Hacky workaround for [vg issue #1503](https://github.com/vgteam/vg/issues/1503)
-
-If you try to use `vg pack` on long read alignments you may get strange SDSL errors complaining about ranks not being in some range. If so, there is a [sed hack you can use to fix the problem](https://github.com/vgteam/vg/issues/1503). A real fix will be in shortly.

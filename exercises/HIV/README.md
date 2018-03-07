@@ -100,3 +100,7 @@ require(tidyverse)
 require(devtools)
 install_github("vqv/ggbiplot")
 ```
+
+#### Hacky workaround for [vg issue #1503](https://github.com/vgteam/vg/issues/1503)
+
+If you try to use `vg pack` on long read alignments you may get strange SDSL errors complaining about ranks not being in some range. If so, there is a [sed hack you can use to fix the problem](https://github.com/vgteam/vg/issues/1503). A real fix will be in shortly.
