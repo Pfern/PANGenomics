@@ -4,7 +4,7 @@ Let's make a reference graph, align reads to it, and use surjection and k-means 
 
 First we'll build and index the graph.
 
-We build the graph using `vg msga` with the `-Z` flag to specify that the inputs sequences should be circularized in the graph. (Note that the assembly of these 4 genomes will always be circular, why is this?)
+We build the graph using `vg msga` from the input sequences. (Note that the assembly of these 4 genomes will always be circular, why is this?)
 
 ```
 vg msga -f REF4.fasta -w 1024 -Z -D | vg mod -U 10 - | vg mod -c -  >REF4.vg
