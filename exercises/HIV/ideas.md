@@ -112,6 +112,7 @@ pacbio.dist <- data.frame(
     id.JRCSF = apply(pacbio.m, 1, function(x) dist(rbind(pacbio.m[3,], x))),
     id.NL43 = apply(pacbio.m, 1, function(x) dist(rbind(pacbio.m[4,], x))))
 pacbio.dist.pca <- prcomp(-pacbio.dist[5:nrow(pacbio.dist),3:6])
-ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()
+ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()
+ggbiplot(pacbio.dist.pca) + geom_point(aes(color=pacbio.dist[5:nrow(pacbio.dist),]$node.count+1)) + scale_color_continuous("node count") + theme_bw()
 ```
 
