@@ -88,3 +88,15 @@ Currently, there are two assemblers installed on the workstations:
 
 - [minia3](https://github.com/GATB/minia) is based on BCALM, but performs additional graph modification steps to get out longer contigs.
 
+
+#### Installing R packages
+
+In [ideas.md](https://github.com/Pfern/PANGenomics/blob/master/exercises/HIV/ideas.md) you are given some R scripts to try. These require several packages that may not be installed on your system. To install them, in R run:
+
+```R
+install.packages("tidyverse")
+install.packages("devtools")
+require(tidyverse)
+require(devtools)
+install_github("vqv/ggbiplot")
+```
