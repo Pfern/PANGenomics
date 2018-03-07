@@ -23,6 +23,8 @@ The course will be of particular interest to researchers investigating organisms
 #### [Intro slides](https://github.com/Pfern/PANGenomics/blob/master/slides/day1-intro.pdf)
 #### [Full slide deck](https://docs.google.com/presentation/d/1Egz5b6oyiyaQ-ecVaTf-waSZlnJT5yNoR578PlpKsTY/edit?usp=sharing)
 #### Practical 1: [toy examples](https://github.com/Pfern/PANGenomics/tree/master/exercises/toy)
+### Day 2
+#### [Wrap up slides](https://docs.google.com/presentation/d/1fBGt2OLc9HVxH594TWeQ5i1sbmFwi555ibR1RgGNxmg/edit?usp=sharing)
 
 ## Learning objectives
 
