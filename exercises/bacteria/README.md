@@ -17,3 +17,17 @@ Today, we will mostly work on E. coli data. On your workstations you find the fo
 - Come up with ways of determining whether a gene is absent/present in a given sample,
 - Build a whole bacterial pan-genome.
 - Use this representation to find a set of essential genes (present in all strains) as opposed to accessory genes (missing in some strains).
+
+## Ideas
+- Do a pooled assembly of the 10 strains
+- Pool the contigs after assembly, potentially iterate the assembly process, i.e. build a cDBG from contigs
+- Use variant calls to linear reference genome and use `vg construct` to build a pan-genome
+- Use vg vectorize to distinguish core /accessory genome after mapping contigs into the graph (i.e. constructed from all of the assemblies)
+- Use an existing polished reference genome as a starting point (e.g. to align contigs to and then augment)
+- Start from all the known gene sequences and use vg msga to build gene models. The expectation is that the different genes would end up in different components. But this process might be slow, DBG-based methods might be faster. Maybe start from a subset.
+- Place contigs along a reference genome to avoid spurious contig-to-contig alignments
+- Map reads to the pan-genome model
+- Select one gene (gyrA) and align all sequences of this gene (from NCBI) from all strains progressively
+- Use this gene model for genotyping
+- Count gene identify in NCBI gene set and take the most frequent one, map reads to it (make sure to filter out false positive mappings)
+
