@@ -86,3 +86,11 @@ vg ids -j 1.vg 2.vg 3.vg
 # now we get a different, bigger graph that contains three copies of input graph
 cat 1.vg 2.vg 3.vg | vg stats -lz -
 ```
+
+### How fast is my alignment going?
+
+You can check how many reads per second you are aligning using:
+
+```
+vg map -d x -f reads.fq.gz -j | pv -l >/dev/null
+```
