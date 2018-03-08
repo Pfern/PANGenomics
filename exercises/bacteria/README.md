@@ -60,3 +60,29 @@ It's now possible to view the graph in GFA format in Bandage to ensure that the 
 vg view SRR3050857_merged.fastq.contigs.vg >SRR3050857_merged.fastq.contigs.+1.gfa
 Bandage &
 ```
+
+### Filtering alignments
+
+You may want to filter alignments to only keep those with a positive score (that are mapped). One easy way to do this is to use [jq](https://stedolan.github.io/jq/). If we want to keep alignments that are aligned we can do the following:
+
+```
+vg view -a aln.gam | jq -cr 'select(.score > 0)' | vg view -JaG - >aln.filt.gam
+```
+
+### Combining graphs together
+
+`vg` has the `join` command, but this is probably _not_ what you want as it does the strange operation of linking all the subgraphs to a single head node.
+
+Instead, it's possible to combine graphs by concatenating them via `cat`. However, they _must have separate id spaces_ or they will overwrite each other. To make a single joint id space, use `vg ids -j`, passing the files you want to join together on the command line:
+
+```
+vg construct -v tiny/tiny.vcf.gz -r tiny/tiny.fa >tiny.vg
+cp tiny.vg 1.vg; cp tiny.vg 2.vg; cp tiny.vg 3.vg
+# these are the same
+vg stats -lz 1.vg
+cat 1.vg 2.vg 3.vg | vg stats -lz -
+# joining the id space allows us to merge the graphs safely
+vg ids -j 1.vg 2.vg 3.vg
+# now we get a different, bigger graph that contains three copies of input graph
+cat 1.vg 2.vg 3.vg | vg stats -lz -
+```
