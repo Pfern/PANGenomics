@@ -23,5 +23,21 @@ It should be noted that there are other methods that you could use to build a gr
 
 ## Choosing MHC scaffolds
 
-An interesting question to ask for a new sample is which MHC scaffold (or pair of scaffolds) will represent its MHC region best. In reality, any individual's MHC haplotypes are unlikely to match any of the MHC scaffolds well. However, they will have recombinant subsequences in common with the scaffolds. Moreover, previous studies have demonstrated benefits in downstream application for choosing more representative sequences for the reference, even if these sequences are imperfect (see Dilthty, et al. 2014). 
+An interesting question to ask for a new sample is which MHC scaffold (or pair of scaffolds) will represent its MHC region best. In reality, any individual's MHC haplotypes are unlikely to match any of the MHC scaffolds well. However, they will have recombinant subsequences in common with the scaffolds. Moreover, previous studies have demonstrated benefits in downstream application for choosing more representative sequences for the reference, even if these sequences are imperfect (see Dilthey, et al. 2014). 
+
+We have provided for you a FASTQ of the reads from the Platinum Genomes Project NA12878 sample that mapped to the MHC region. Of course, this dataset is already biased by mapping to a linear reference. If you would like to work with a more unbiased sample, we have also included a whole genome dataset. However, you will have to contend with the larger data volume and the fact that not all of these reads will map to the MHC graph. 
+
+## Variant calling in VG
+
+In order to choose an MHC scaffold, it might be useful to perform variant calling against the graph you construct. However, you should not that this is only one route forward. Think about how you would use the results before you devote too much time to it.
+
+VG has two methods for genotyping variants, but in the interest of simplicity we will only present one here. Note that to output a VCF, you will need to have constructed your graph using a method that preserved the reference sequence as a path. 
+
+Now we use the indexed reads to do the variant calling.
+
+    vg genotype -G mapped.gam.idx -r pathname -v graph.vg 
+
+If this is too slow for you, it is also possible to speed up the execution by building a RocksDB index of the GAM first with `vg index` and then passing that in as a positional argument in place of `-G`.
+
+How could you use these variant calls to determine which MHC scaffold(s) are most appropriate for this sample?
 
