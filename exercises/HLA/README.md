@@ -17,7 +17,7 @@ Graph genome tools offer one possibility for how we could use the alternate scaf
     # -M = input file, -F = format, -m = max node size
     vg construct -M mult_seq_aln.clustal -F clustal -m 32 > msa.vg
 
-You are free to try this method, but be warned that the MHC region is large and it may overwhelm MSA tools that were designed for smaller sequences. We have provided you with the GRC's own MSA of the MHC alternate scaffolds in MAF format, but you should not feel bound to use it.
+You are free to try this method, but be warned that the MHC region is large and it may overwhelm MSA tools that were designed for smaller sequences. We have provided you with the GRC's own MSA of the MHC alternate scaffolds in MAF format, but you should not feel bound to use it. If you are interested, you might want to try making an MSA graph from other sequences as well (e.g. the HIV sequences from two days ago).
 
 It should be noted that there are other methods that you could use to build a graph of the MHC region. For instance, you could find a VCF and use `vg construct -v`. You could also use an assembly tool to build an assembly graph and construct a VG from the GFA.
 
@@ -33,9 +33,8 @@ In order to choose an MHC scaffold, it might be useful to perform variant callin
 
 VG has two methods for genotyping variants, but in the interest of simplicity we will only present one here. Note that to output a VCF, you will need to have constructed your graph using a method that preserved the reference sequence as a path. 
 
-Now we use the indexed reads to do the variant calling.
-
-    vg genotype -G mapped.gam.idx -r pathname -v graph.vg 
+    # -v for VCF output using the -r path as the reference  
+    vg genotype -G mapped.gam -r pathname -v graph.vg 
 
 If this is too slow for you, it is also possible to speed up the execution by building a RocksDB index of the GAM first with `vg index` and then passing that in as a positional argument in place of `-G`.
 
