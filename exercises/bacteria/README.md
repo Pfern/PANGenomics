@@ -31,3 +31,32 @@ Today, we will mostly work on E. coli data. On your workstations you find the fo
 - Use this gene model for genotyping
 - Count gene identify in NCBI gene set and take the most frequent one, map reads to it (make sure to filter out false positive mappings)
 
+## Hints
+
+
+### GFA input to vg from minia and bcalm
+
+You can read the minia3 assemblies into GFA and then vg using these commands. (The same is true for bcalm, and can be done on the unitig or contig sets from both of these assemblers.)
+
+First we convert the graph to GFA:
+
+```
+convertToGFA.py SRR3050857_merged.fastq.contigs.fa SRR3050857_merged.fastq.contigs.gfa 51
+```
+
+Note that we used kmer size 51 for the assemblies, and you will need to change this parameter to `convertToGFA.py` if you use a different k.
+
+Now we fix up the ID space to make vg happy (it can't handle node id == 0) and feed the result into vg:
+
+```
+cat SRR3050857_merged.fastq.contigs.gfa \
+    | awk '$1=="L" { $2 +=1 ; $4+=1 } $1=="S" { $2+=1 } { print }' | tr ' ' '\t' \
+    | vg view -v - >SRR3050857_merged.fastq.contigs.vg
+```
+
+It's now possible to view the graph in GFA format in Bandage to ensure that the conversion worked.
+
+```
+vg view SRR3050857_merged.fastq.contigs.vg >SRR3050857_merged.fastq.contigs.+1.gfa
+Bandage &
+```
