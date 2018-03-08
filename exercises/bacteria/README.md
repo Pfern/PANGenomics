@@ -51,7 +51,7 @@ Now we fix up the ID space to make vg happy (it can't handle node id == 0) and f
 ```
 cat SRR3050857_merged.fastq.contigs.gfa \
     | awk '$1=="L" { $2 +=1 ; $4+=1 } $1=="S" { $2+=1 } { print }' | tr ' ' '\t' \
-    | vg view -v - >SRR3050857_merged.fastq.contigs.vg
+    | vg view -Fv - >SRR3050857_merged.fastq.contigs.vg
 ```
 
 It's now possible to view the graph in GFA format in Bandage to ensure that the conversion worked.
