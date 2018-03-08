@@ -25,8 +25,10 @@ The course will be of particular interest to researchers investigating organisms
 #### Practical 1: [toy examples](https://github.com/Pfern/PANGenomics/tree/master/exercises/toy)
 ### Day 2
 #### [Slides](https://docs.google.com/presentation/d/1fBGt2OLc9HVxH594TWeQ5i1sbmFwi555ibR1RgGNxmg/edit?usp=sharing)
+#### Practical 2: [HIV](https://github.com/Pfern/PANGenomics/tree/master/exercises/HIV)
 ### Day 3
 #### [Slides](https://docs.google.com/presentation/d/1S-1zzyw5xmwKmBsPkE5aD3AoipWapSLgtMhO02X4_pM/edit?usp=sharing)
+#### Practical 3: [Bacteria](https://github.com/Pfern/PANGenomics/tree/master/exercises/bacteria)
 
 ## Learning objectives
 
