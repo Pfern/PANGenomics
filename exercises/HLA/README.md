@@ -1,6 +1,6 @@
 ## The MHC region
 
-The MHC (major histocompatiblity complex) is a region on chromosome 6 in the human genome. It is enriched for  genes of the immune system, including the HLA (human leukocyte antigen) genes. Unlike antibodies, the HLA genes do not undergo somatic mutation or rearrangement. However, they do display antigen to antibodies and T-cell receptors. Thus, they are part of the adaptive immune system. Accordingly, these genes are under strong diversifying selection; any haplotype that becomes too common is susceptible to epidemic if a disease agent evolves the capacity to evade it. For this reason, the MHC region is one of the most wildly polymorphic regions of the human genome. Moreover, it is enriched for non-trivial structural variation as well as point variants.
+The MHC (major histocompatiblity complex) is a region on chromosome 6 in the human genome. It is enriched for  genes of the immune system, including the HLA (human leukocyte antigen) genes. Unlike antibodies, the HLA genes do not undergo somatic hypermutation or genomic rearrangement to achieve high diversity. However, they do display antigen to antibodies and T-cell receptors, so they are still considered part of the adaptive immune system. Accordingly, these genes are under strong diversifying selection; any haplotype that becomes too common is susceptible to epidemic if a disease agent evolves the capacity to evade it. For this reason, the MHC region is one of the most wildly polymorphic regions of the human genome. Moreover, it is enriched for non-trivial structural variation as well as point variants.
 
 ![MHC](http://www.sciscogenetics.com/wp-content/uploads/2013/05/MHC.png)
 
@@ -19,13 +19,13 @@ Graph genome tools offer one possibility for how we could use the alternate scaf
 
 You are free to try this method, but be warned that the MHC region is large and it may overwhelm MSA tools that were designed for smaller sequences. We have provided you with the GRC's own MSA of the MHC alternate scaffolds in MAF format, but you should not feel bound to use it. If you are interested, you might want to try making an MSA graph from other sequences as well (e.g. the HIV sequences from two days ago).
 
-It should be noted that there are other methods that you could use to build a graph of the MHC region. For instance, you could find a VCF and use `vg construct -v`. You could also use an assembly tool to build an assembly graph and construct a VG from the GFA.
+It should be noted that there are other methods that you could use to build a graph of the MHC region. For instance, you could find a VCF and use `vg construct -v`. You could also use an assembly tool to build an assembly graph and construct a VG from the GFA file.
 
 ## Choosing MHC scaffolds
 
 An interesting question to ask for a new sample is which MHC scaffold (or pair of scaffolds) will represent its MHC region best. In reality, any individual's MHC haplotypes are unlikely to match any of the MHC scaffolds well. However, they will have recombinant subsequences in common with the scaffolds. Moreover, previous studies have demonstrated benefits in downstream application for choosing more representative sequences for the reference, even if these sequences are imperfect (see Dilthey, et al. 2014). 
 
-We have provided for you a FASTQ of the reads from the Platinum Genomes Project NA12878 sample that mapped to the MHC region. Of course, this dataset is already biased by mapping to a linear reference. If you would like to work with a more unbiased sample, we have also included a whole genome dataset. However, you will have to contend with the larger data volume and the fact that not all of these reads will map to the MHC graph. 
+We have provided for you a set of sequencing reads from the Human Genome Structural Variation Consortium. They come from three parent-child trios: the Yoruban trio NA19238-NA19239-NA19240, the Han Chinese trio HG00512-HG00513-HG00514, and the Puerto Rican trio HG00732-HG00733-HG00734. You will have both Illumina paired end short reads and PacBio long reads. Rather than providing the entire genomic dataset, we have extracted reads that mapped to the MHC region or one of the alternate scaffolds using a conventional read mapper. Of course, that means that these datasets are already biased by mapping to a linear reference. However, the volume of data for a full genomic dataset is probably too computationally demanding for an exercise in this environment. High coverage datasets may also be challenging, so we have also provided downsampled lower coverage files. 
 
 ## Variant calling in VG
 
@@ -38,5 +38,5 @@ VG has two methods for genotyping variants, but in the interest of simplicity we
 
 If this is too slow for you, it is also possible to speed up the execution by building a RocksDB index of the GAM first with `vg index` and then passing that in as a positional argument in place of `-G`.
 
-How could you use these variant calls to determine which MHC scaffold(s) are most appropriate for this sample?
+How could you use these variant calls to determine which MHC scaffold(s) are most appropriate for this sample? Since you have trio datasets may be interesting to look at Mendelian consistency in your approach.
 
