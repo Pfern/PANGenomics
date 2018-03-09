@@ -32,6 +32,7 @@ The course will be of particular interest to researchers investigating organisms
 ### Day 4
 #### [Slides](https://docs.google.com/presentation/d/1qKff75AULx-pr8G-kGQHZaDi4hSL-ruwa-syMODq7lo/edit?usp=sharing)
 #### [Practical overview](https://docs.google.com/presentation/d/18Se1rQcT_MCRGitcqwg_YmT4irMqdJEfVLpoHAXfEUk/edit?usp=sharing)
+#### [Theory slides](https://docs.google.com/presentation/d/1iGv_XRDjabxVpvjLxz007jepXFu8y0e7Xmmjf-TwCxg/edit?usp=sharing)
 #### Practical 4: [MHC](https://github.com/Pfern/PANGenomics/tree/master/exercises/HLA)
 
 
