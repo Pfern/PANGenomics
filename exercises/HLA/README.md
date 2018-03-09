@@ -29,7 +29,7 @@ We have provided for you a set of sequencing reads from the Human Genome Structu
 
 ## Variant calling in VG
 
-In order to choose an MHC scaffold, it might be useful to perform variant calling against the graph you construct. However, you should not that this is only one route forward. Think about how you would use the results before you devote too much time to it.
+In order to choose an MHC scaffold, it might be useful to perform variant calling against the graph you construct. However, this is not the only route forward. Think about how you would use the results before you devote too much time to it.
 
 VG has two methods for genotyping variants, but in the interest of simplicity we will only present one here. Note that to output a VCF, you will need to have constructed your graph using a method that preserved the reference sequence as a path. 
 
