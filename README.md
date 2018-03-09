@@ -149,7 +149,7 @@ Tobias received his undergraduate education at Bielefeld University (Germany), w
 
 [Jordan Eizenga](https://github.com/jeizenga) is a PhD student in the Computational Genomics Lab at the Unversity of California Santa Cruz. His advisors are David Haussler and Benedict Paten. Jordan was originally trained as a mathematician, but made the switch to bioinformatics in 2015. Now his research focuses on using graph data structures in genomics. He has published on both theoretical and practical aspects of this problem, and he has been heavily involved in the development of the [vg](https://github.com/vgteam/vg) project.
 
-# TODO
+# Method used in GTPB to structure and generate the course content
 
 - [x] Define the overall learning objectives
 - [x] Break down in units (sub-objectives) that can be assigned to instructors
