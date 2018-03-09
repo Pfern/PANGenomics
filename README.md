@@ -30,7 +30,8 @@ The course will be of particular interest to researchers investigating organisms
 #### [Slides](https://docs.google.com/presentation/d/1S-1zzyw5xmwKmBsPkE5aD3AoipWapSLgtMhO02X4_pM/edit?usp=sharing)
 #### Practical 3: [Bacteria](https://github.com/Pfern/PANGenomics/tree/master/exercises/bacteria)
 ### Day 4
-#### [Slides](https://docs.google.com/presentation/d/18Se1rQcT_MCRGitcqwg_YmT4irMqdJEfVLpoHAXfEUk/edit?usp=sharing)
+#### [Slides 1](https://docs.google.com/presentation/d/18Se1rQcT_MCRGitcqwg_YmT4irMqdJEfVLpoHAXfEUk/edit?usp=sharing)
+#### [Slides 2](https://docs.google.com/presentation/d/1qKff75AULx-pr8G-kGQHZaDi4hSL-ruwa-syMODq7lo/edit?usp=sharing)
 #### Practical 4: [MHC](https://github.com/Pfern/PANGenomics/tree/master/exercises/HLA)
 
 
